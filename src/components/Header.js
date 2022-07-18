@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [toggleLogout, setToggleLogout] = useState(false);
@@ -6,12 +7,12 @@ function Header() {
   return (
     <div className="py-4 flex items-center justify-between">
       <section className="header-left flex gap-8 items-center">
-        <a href="/">
+        <Link to="/">
           <img src="./logo.png" alt="Movies Logo" className="w-10" />
-        </a>
+        </Link>
 
         <div className="navigation flex gap-6">
-          <button>Home</button>
+          <Link to="/">Home</Link>
           <button>Series</button>
           <button>Movies</button>
           <button>New & Popular</button>
@@ -20,7 +21,9 @@ function Header() {
       </section>
 
       <section className="header-right flex gap-8">
-        <button className="bg-red-700 py-2 px-4 rounded-sm">Login</button>
+        <Link to="/login" className="bg-red-700 py-2 px-4 rounded-sm">
+          Login
+        </Link>
         {/* <div className="flex items-center relative">
           <input
             type="text"
