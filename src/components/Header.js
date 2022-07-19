@@ -1,8 +1,21 @@
+import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Header() {
   const [toggleLogout, setToggleLogout] = useState(false);
+  const navigate = useNavigate();
+  const [user] = useAuthState(auth);
+
+  const onLogout = async () => {
+    try {
+      await signOut(auth);
+      setToggleLogout(false);
+      navigate("/login");
+    } catch (error) {}
+  };
 
   return (
     <div className="py-4 flex items-center justify-between">
@@ -21,10 +34,7 @@ function Header() {
       </section>
 
       <section className="header-right flex gap-8">
-        <Link to="/login" className="bg-red-700 py-2 px-4 rounded-sm">
-          Login
-        </Link>
-        {/* <div className="flex items-center relative">
+        <div className="flex items-center relative">
           <input
             type="text"
             placeholder="Search Thor"
@@ -34,26 +44,38 @@ function Header() {
             <img src="./ic_search.svg" alt="Icon Search" />
           </button>
         </div>
-        <button className="relative">
-          <div
-            onClick={() => setToggleLogout(!toggleLogout)}
-            className="cursor-pointer flex items-center gap-2 "
-          >
-            <p>Ari Alghifari</p>
-            <img src="./profile_image.png" alt="Icon Search" className="w-8" />
-            <img src="./ic_arrow_down.svg" alt="Icon Arrow Down" />
-          </div>
+        
+        {user ? (
+          <button className="relative">
+            <div
+              onClick={() => setToggleLogout(!toggleLogout)}
+              className="cursor-pointer flex items-center gap-2 "
+            >
+              <p>{user.email}</p>
+              <img
+                src="./profile_image.png"
+                alt="Icon Search"
+                className="w-8 rounded-sm"
+              />
+              <img src="./ic_arrow_down.svg" alt="Icon Arrow Down" />
+            </div>
 
-          <div
-            className={
-              toggleLogout
-                ? "absolute right-0 top-10 bg-zinc-800 py-2 px-4"
-                : "hidden"
-            }
-          >
-            Logout
-          </div>
-        </button> */}
+            <div
+              onClick={onLogout}
+              className={
+                toggleLogout
+                  ? "absolute right-0 top-10 bg-zinc-800 py-2 px-4"
+                  : "hidden"
+              }
+            >
+              Logout
+            </div>
+          </button>
+        ) : (
+          <Link to="/login" className="bg-red-700 py-2 px-4 rounded-sm">
+            Login
+          </Link>
+        )}
       </section>
     </div>
   );

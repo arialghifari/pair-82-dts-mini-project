@@ -5,6 +5,8 @@ import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Page404 from "./containers/Page404";
 
 function App() {
   return (
@@ -13,8 +15,24 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute loginOnlyPage={false}>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute loginOnlyPage={false}>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Page404 />} />
       </Routes>
 
       <Footer />
