@@ -12,3 +12,9 @@
     @apply bg-zinc-900 text-zinc-200;
   }
 }
+
+@layer components {
+  .movie-card:hover > .movie-card__title {
+    @apply underline underline-offset-2;
+  }
+}
