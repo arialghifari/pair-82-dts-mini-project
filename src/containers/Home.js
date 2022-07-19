@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import MovieBanner from "../components/MovieBanner";
 import MovieCard from "../components/MovieCard";
+import MovieCardTop from "../components/MovieCardTop";
 import {
   usePopularMovieQuery,
-  useTrendingMovieWeekQuery,
-  useTrendingMovieIndonesiaQuery,
+  useTrendingMoviesWeeklyQuery,
+  useTrendingSeriesWeeklyQuery,
+  useTrendingMoviesIndonesiaQuery,
 } from "../services/moviesApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,13 +26,19 @@ function HomePage() {
     data: dataTrending,
     error: errorTrending,
     isLoading: isLoadingTrending,
-  } = useTrendingMovieWeekQuery();
+  } = useTrendingMoviesWeeklyQuery();
+
+  const {
+    data: dataTrendingSeries,
+    error: errorTrendingSeries,
+    isLoading: isLoadingTrendingSeries,
+  } = useTrendingSeriesWeeklyQuery();
 
   const {
     data: dataInd,
     error: errorInd,
     isLoading: isLoadingInd,
-  } = useTrendingMovieIndonesiaQuery();
+  } = useTrendingMoviesIndonesiaQuery();
 
   return (
     <div className="mb-20">
@@ -103,7 +111,43 @@ function HomePage() {
         <p className="text-center"></p>
       ) : dataInd ? (
         <>
-          <p className="text-xl font-bold mt-10 mb-4">Indonesian Pride</p>
+          <p className="text-xl font-bold mt-10 mb-4">
+            🥇 Top 10 Indonesian Movies
+          </p>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={20}
+            className="mySwiper"
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {dataInd.results.slice(0, 10).map((item, index) => {
+              return (
+                <SwiperSlide key={item.id}>
+                  <MovieCardTop key={item.id} item={item} top={index + 1} />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </>
+      ) : null}
+
+      {errorTrendingSeries ? (
+        <>Oh no, there was an error</>
+      ) : isLoadingTrendingSeries ? (
+        <p className="text-center"></p>
+      ) : dataTrendingSeries ? (
+        <>
+          <p className="text-xl font-bold mt-10 my-4">⭐Best Series</p>
           <Swiper
             slidesPerView={2}
             spaceBetween={20}
@@ -120,10 +164,10 @@ function HomePage() {
               },
             }}
           >
-            {dataInd.results.slice(0, 10).map((item) => {
+            {dataTrendingSeries.results.map((item) => {
               return (
                 <SwiperSlide key={item.id}>
-                  <MovieCard key={item.id} item={item} />
+                  <MovieCard key={item.id} item={item} movie={false} />
                 </SwiperSlide>
               );
             })}

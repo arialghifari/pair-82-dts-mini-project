@@ -10,10 +10,13 @@ export const moviesApi = createApi({
     popularMovie: builder.query({
       query: () => `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`,
     }),
-    trendingMovieWeek: builder.query({
+    trendingMoviesWeekly: builder.query({
       query: () => `/trending/movie/week?api_key=${API_KEY}`,
     }),
-    trendingMovieIndonesia: builder.query({
+    trendingSeriesWeekly: builder.query({
+      query: () => `/trending/tv/week?api_key=${API_KEY}`,
+    }),
+    trendingMoviesIndonesia: builder.query({
       query: () =>
         `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&with_original_language=id&primary_release_date.gte=2022`,
     }),
@@ -22,6 +25,7 @@ export const moviesApi = createApi({
 
 export const {
   usePopularMovieQuery,
-  useTrendingMovieWeekQuery,
-  useTrendingMovieIndonesiaQuery,
+  useTrendingMoviesWeeklyQuery,
+  useTrendingSeriesWeeklyQuery,
+  useTrendingMoviesIndonesiaQuery,
 } = moviesApi;

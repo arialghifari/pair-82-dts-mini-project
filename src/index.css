@@ -36,14 +36,18 @@
   left: 0 !important;
 }
 
+.movie-card:hover div > img.movie {
+  transform: translateY(-4px) translateX(4px);
+  transition: 0.5s;
+}
+
+.movie-card:hover div > img.movie-top {
+  transform: translateY(-6px);
+  transition: 0.5s;
+}
+
 @layer base {
   body {
     @apply bg-zinc-900 text-zinc-200;
-  }
-}
-
-@layer components {
-  .movie-card:hover > .movie-card__title {
-    @apply underline underline-offset-2;
   }
 }
