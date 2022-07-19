@@ -22,9 +22,7 @@ function MovieCard({ item }) {
           alt={item.title}
           className="h-72 w-48 rounded-md object-cover object-center"
         />
-        <p className="movie-card__title font-medium">
-          {item.title}
-        </p>
+        <p className="movie-card__title font-medium">{item.title}</p>
         <p className="text-sm">{formatDate(item.release_date)}</p>
       </div>
     </Link>

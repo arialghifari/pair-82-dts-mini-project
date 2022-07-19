@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -9,27 +9,43 @@ function Header() {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
 
+  const navItems = [
+    { text: "Home", link: "/" },
+    { text: "Series", link: "/series" },
+    { text: "Movies", link: "/movies" },
+    { text: "New & Popular", link: "/newpopular" },
+    { text: "My List", link: "/mylist" },
+  ];
+
   const onLogout = async () => {
     try {
       await signOut(auth);
       setToggleLogout(false);
       navigate("/login");
-    } catch (error) {}
+    } catch (error) {
+      <p>{error.message}</p>;
+    }
   };
 
   return (
-    <div className="py-4 flex items-center justify-between">
+    <div className="container fixed top-0 left-0 right-0 bg-zinc-900 z-50 py-4 flex items-center justify-between">
       <section className="header-left flex gap-8 items-center">
         <Link to="/">
-          <img src="./logo.png" alt="Movies Logo" className="w-10" />
+          <img src="./logo.png" alt="Movies Logo" className="w-10 rounded-sm" />
         </Link>
 
         <div className="navigation flex gap-6">
-          <Link to="/">Home</Link>
-          <button>Series</button>
-          <button>Movies</button>
-          <button>New & Popular</button>
-          <button>My List</button>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.text}
+              to={item.link}
+              className={({ isActive }) =>
+                isActive ? "nav-active" : "text-zinc-400"
+              }
+            >
+              {item.text}
+            </NavLink>
+          ))}
         </div>
       </section>
 
@@ -37,14 +53,14 @@ function Header() {
         <div className="flex items-center relative">
           <input
             type="text"
-            placeholder="Search Thor"
+            placeholder="Search Movie"
             className="p-2 bg-zinc-900 border border-zinc-500"
           />
           <button className="absolute right-1 p-2 bg-zinc-900">
             <img src="./ic_search.svg" alt="Icon Search" />
           </button>
         </div>
-        
+
         {user ? (
           <button className="relative">
             <div
@@ -55,9 +71,9 @@ function Header() {
               <img
                 src="./profile_image.png"
                 alt="Icon Search"
-                className="w-8 rounded-sm"
+                className="w-7 rounded-sm"
               />
-              <img src="./ic_arrow_down.svg" alt="Icon Arrow Down" />
+              <img src="./ic_arrow_down.svg" alt="Icon Arrow Down" className="scale-90" />
             </div>
 
             <div

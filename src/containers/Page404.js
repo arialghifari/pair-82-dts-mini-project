@@ -6,7 +6,9 @@ function Page404() {
     <div className="flex justify-center mt-16 mb-32">
       <div className="flex flex-col max-w-sm">
         <img src="./404.png" alt="404 Not Found" className="" />
-        <Link to="/" className="p-2 bg-red-700 text-center">Go Back</Link>
+        <Link to="/" className="p-2 bg-red-700 text-center">
+          Back
+        </Link>
       </div>
     </div>
   );

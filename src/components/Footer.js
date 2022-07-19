@@ -27,7 +27,18 @@ function Footer() {
           <button>Corporate Information</button>
         </div>
       </div>
-      <div className="mt-8">© 2022 Movies. All Right Reserved</div>
+      <div className="mt-8">
+        © 2022 Movies. Made with ❤ by{" "}
+        <a
+          href="https://github.com/arialghifari"
+          target="_blank"
+          rel="noreferrer"
+          className="underline underline-offset-4"
+        >
+          Ari Alghifari
+        </a>
+        . All rights reserved.
+      </div>
     </div>
   );
 }

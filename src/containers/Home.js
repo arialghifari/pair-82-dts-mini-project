@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import MovieBanner from "../components/MovieBanner";
 import MovieCard from "../components/MovieCard";
 import {
+  usePopularMovieQuery,
   useTrendingMovieWeekQuery,
   useTrendingMovieIndonesiaQuery,
 } from "../services/moviesApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, EffectFade } from "swiper";
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/effect-fade";
 
 function HomePage() {
+  const {
+    data: dataPopular,
+    error: errorPopular,
+    isLoading: isLoadingPopular,
+  } = usePopularMovieQuery();
+
   const {
     data: dataTrending,
     error: errorTrending,
@@ -23,13 +34,42 @@ function HomePage() {
 
   return (
     <div className="mb-20">
+      {errorPopular ? (
+        <>Oh no, there was an error</>
+      ) : isLoadingPopular ? (
+        <p className="text-center">Loading..</p>
+      ) : dataPopular ? (
+        <>
+          <Swiper
+            navigation={true}
+            slidesPerView={1}
+            effect="fade"
+            loop={true}
+            autoplay={{
+              delay: 10000,
+              disableOnInteraction: false,
+            }}
+            modules={[Navigation, Autoplay, EffectFade]}
+            className="mySwiper"
+          >
+            {dataPopular.results.map((item) => {
+              return (
+                <SwiperSlide key={item.id}>
+                  <MovieBanner item={item} />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </>
+      ) : null}
+
       {errorTrending ? (
         <>Oh no, there was an error</>
       ) : isLoadingTrending ? (
-        <p className="text-center">Loading...</p>
+        <p className="text-center"></p>
       ) : dataTrending ? (
         <>
-          <p className="text-xl font-bold my-4">🔥 Trending This Week</p>
+          <p className="text-xl font-bold mt-10 my-4">🔥 Trending This Week</p>
           <Swiper
             slidesPerView={2}
             spaceBetween={20}
@@ -49,7 +89,7 @@ function HomePage() {
             {dataTrending.results.map((item) => {
               return (
                 <SwiperSlide key={item.id}>
-                  <MovieCard item={item} />
+                  <MovieCard key={item.id} item={item} />
                 </SwiperSlide>
               );
             })}
@@ -60,7 +100,7 @@ function HomePage() {
       {errorInd ? (
         <>Oh no, there was an error</>
       ) : isLoadingInd ? (
-        <p className="text-center">Loading...</p>
+        <p className="text-center"></p>
       ) : dataInd ? (
         <>
           <p className="text-xl font-bold mt-10 mb-4">Indonesian Pride</p>
@@ -80,10 +120,10 @@ function HomePage() {
               },
             }}
           >
-            {dataInd.results.map((item) => {
+            {dataInd.results.slice(0, 10).map((item) => {
               return (
                 <SwiperSlide key={item.id}>
-                  <MovieCard item={item} />
+                  <MovieCard key={item.id} item={item} />
                 </SwiperSlide>
               );
             })}

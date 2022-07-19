@@ -7,6 +7,35 @@
   font-family: "Inter", "system-ui";
 }
 
+.nav-active {
+  text-shadow: 2px 1px 1px #da0000;
+}
+
+.text-shadow-desc {
+  text-shadow: 1px 1px 1px #424242;
+}
+
+.text-shadow-title {
+  text-shadow: 3px 3px 3px #da0000;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #858585 !important;
+  transform: scale(0.6);
+  height: 100% !important;
+  top: 1rem !important;
+  padding: 20px 36px;
+}
+
+.swiper-button-next {
+  right: 0 !important;
+}
+
+.swiper-button-prev {
+  left: 0 !important;
+}
+
 @layer base {
   body {
     @apply bg-zinc-900 text-zinc-200;

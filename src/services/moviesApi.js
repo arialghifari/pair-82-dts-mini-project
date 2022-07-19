@@ -7,15 +7,21 @@ export const moviesApi = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
+    popularMovie: builder.query({
+      query: () => `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`,
+    }),
     trendingMovieWeek: builder.query({
       query: () => `/trending/movie/week?api_key=${API_KEY}`,
     }),
     trendingMovieIndonesia: builder.query({
       query: () =>
-        `/discover/movie?api_key=${API_KEY}&with_original_language=id&primary_release_date.gte=2021`,
+        `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&with_original_language=id&primary_release_date.gte=2022`,
     }),
   }),
 });
 
-export const { useTrendingMovieWeekQuery, useTrendingMovieIndonesiaQuery } =
-  moviesApi;
+export const {
+  usePopularMovieQuery,
+  useTrendingMovieWeekQuery,
+  useTrendingMovieIndonesiaQuery,
+} = moviesApi;
