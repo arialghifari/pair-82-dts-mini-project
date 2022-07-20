@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import { useDetailSeriesQuery } from "../services/moviesApi";
+import React from "react";
+import {
+  useDetailSeriesQuery,
+  useSeriesRecomendationsQuery,
+} from "../services/moviesApi";
 import { useParams } from "react-router-dom";
 import { BASE_IMAGE_URL } from "../apis/tmdb";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import { Swiper, SwiperSlide } from "swiper/react";
+import MovieCard from "../components/MovieCard";
 
 function HomePage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  window.scrollTo(0, 0);
 
   const formatDate = (releaseDate) => {
     const date = new Date(releaseDate);
@@ -25,6 +28,11 @@ function HomePage() {
 
   const { id } = useParams();
   const { data, error, isLoading } = useDetailSeriesQuery(`${id}`);
+  const {
+    data: dataSeriesRec,
+    error: errorSeriesRec,
+    isLoading: isLoadingSeriesRec,
+  } = useSeriesRecomendationsQuery(`${id}`);
 
   return (
     <div className="mb-20">
@@ -42,23 +50,31 @@ function HomePage() {
                 className="h-[28rem] w-[18rem] object-cover object-center rounded-md shadow-lg shadow-neutral-900"
               />
               <div className="flex gap-4 flex-col justify-center">
-                <p className="flex gap-1 bg-red-700 hover:bg-red-800 w-fit text-zinc-200 cursor-pointer py-2 px-3 rounded-sm">
+                <button className="flex items-center gap-1 bg-red-700 hover:bg-red-800 w-fit text-zinc-200 cursor-pointer py-2 px-3 rounded-sm">
                   <img src="/ic_play.svg" alt="" />
                   Watch Trailer
-                </p>
+                </button>
                 <p className="font-bold text-4xl text-shadow-title leading-[3.35rem]">
-                  {`${data.name} (${data.first_air_date.split("-")[0]})`}
+                  {`${data.name}`}{" "}
+                  {data.first_air_date &&
+                    `(${data.first_air_date.split("-")[0]})`}
                 </p>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
-                    <p className="flex gap-1 w-fit font-medium text-shadow-white text-black text-sm px-2 rounded-sm bg-zinc-300">
+                    <p className="flex gap-1 w-fit font-semibold text-shadow-white text-zinc-900 text-sm px-2 rounded-sm bg-gradient-to-br from-zinc-200 to-zinc-500">
                       <img src="/ic_calendar.svg" alt="" />
                       {formatDate(data.first_air_date)}
                     </p>
-                    <p className="flex gap-1 w-fit font-medium text-shadow-white text-black text-sm px-2 rounded-sm bg-zinc-300">
+                    <p className="flex gap-1 w-fit font-semibold text-shadow-white text-zinc-900 text-sm px-2 rounded-sm bg-gradient-to-br from-zinc-200 to-zinc-500">
                       <img src="/ic_clock.svg" alt="" />
                       {data.last_episode_to_air.runtime}min
+                    </p>
+                    <p className="flex gap-1 w-fit font-medium text-shadow-white text-zinc-300 text-sm px-2 rounded-sm bg-gradient-to-br from-gray-900 to-gray-700">
+                      {`${data.number_of_seasons} seasons`}
+                    </p>
+                    <p className="flex gap-1 w-fit font-medium text-shadow-white text-zinc-300 text-sm px-2 rounded-sm bg-gradient-to-br from-gray-900 to-gray-700">
+                      {`${data.number_of_episodes} episodes`}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -72,16 +88,63 @@ function HomePage() {
                     ))}
                   </div>
                 </div>
-                <p className="text-shadow-desc text-lg">{data.overview}</p>
+                <p className="text-shadow-desc text-lg text-zinc-200">
+                  {data.overview}
+                </p>
               </div>
             </div>
           </div>
-          <img
-            src={`${BASE_IMAGE_URL}${data.backdrop_path}`}
-            alt={data.title}
-            className="h-[42rem] w-[200rem] object-cover object-center"
-          />
+          {data.backdrop_path ? (
+            <img
+              src={`${BASE_IMAGE_URL}${data.backdrop_path}`}
+              alt={data.title}
+              className="h-[42rem] w-[200rem] object-cover object-center"
+            />
+          ) : (
+            <div className="h-[42rem]" />
+          )}
           <div className="absolute top-0 bg-zinc-900 h-full w-full z-10 opacity-90"></div>
+        </div>
+      ) : null}
+
+      {errorSeriesRec ? (
+        <></>
+      ) : isLoadingSeriesRec ? (
+        <></>
+      ) : dataSeriesRec ? (
+        <div className="container">
+          <p className="text-xl font-bold mt-16 my-4">Recomendations</p>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={20}
+            className="mySwiper"
+            breakpoints={{
+              440: {
+                slidesPerView: 2,
+              },
+              640: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 5,
+              },
+              1280: {
+                slidesPerView: 6,
+              },
+            }}
+          >
+            {dataSeriesRec.total_results > 0 ? (
+              dataSeriesRec.results.map((item) => {
+                return (
+                  <SwiperSlide key={item.id}>
+                    <MovieCard key={item.id} item={item} movie={false} />
+                  </SwiperSlide>
+                );
+              })
+            ) : (
+              <p>Not available</p>
+            )}
+          </Swiper>
         </div>
       ) : null}
     </div>

@@ -90,10 +90,13 @@ function HomePage() {
         <div className="container">
           <p className="text-xl font-bold mt-16 my-4">🔥 Trending This Week</p>
           <Swiper
-            slidesPerView={2}
+            slidesPerView={1}
             spaceBetween={20}
             className="mySwiper"
             breakpoints={{
+              440: {
+                slidesPerView: 2,
+              },
               640: {
                 slidesPerView: 3,
               },
@@ -160,10 +163,13 @@ function HomePage() {
         <div className="container">
           <p className="text-xl font-bold mt-16 my-4">⭐ Best Series</p>
           <Swiper
-            slidesPerView={2}
+            slidesPerView={1}
             spaceBetween={20}
             className="mySwiper"
             breakpoints={{
+              440: {
+                slidesPerView: 2,
+              },
               640: {
                 slidesPerView: 3,
               },

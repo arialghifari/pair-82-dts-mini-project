@@ -97,7 +97,10 @@ function Header() {
               </div>
             </button>
           ) : (
-            <Link to="/login" className="bg-red-700 hover:bg-red-800 py-2 px-4 rounded-sm">
+            <Link
+              to="/login"
+              className="bg-red-700 hover:bg-red-800 py-2 px-4 rounded-sm"
+            >
               Login
             </Link>
           )}

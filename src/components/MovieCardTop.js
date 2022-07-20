@@ -24,7 +24,11 @@ function MovieCard({ item, top }) {
             className="object-right w-32"
           />
           <img
-            src={`${BASE_IMAGE_URL}${item.poster_path}`}
+            src={
+              item.poster_path
+                ? `${BASE_IMAGE_URL}${item.poster_path}`
+                : "/image_not_found.png"
+            }
             alt={item.title}
             className="movie-top h-60 w-40 block rounded-sm object-cover object-center"
           />
@@ -33,7 +37,7 @@ function MovieCard({ item, top }) {
           {item.title}
         </p>
         <p className="text-sm font-light text-center">
-          {formatDate(item.release_date)}
+          {item.release_date && formatDate(item.release_date)}
         </p>
       </div>
     </Link>

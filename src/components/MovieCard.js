@@ -19,7 +19,11 @@ function MovieCard({ item, movie = true }) {
       <div className="movie-card flex flex-col gap-2 cursor-pointer">
         <div className="rounded-md bg-red-700 h-72 w-48">
           <img
-            src={`${BASE_IMAGE_URL}${item.poster_path}`}
+            src={
+              item.poster_path
+                ? `${BASE_IMAGE_URL}${item.poster_path}`
+                : "/image_not_found.png"
+            }
             alt={item.title}
             className="h-full w-full movie rounded-md object-cover object-center"
           />
@@ -28,7 +32,8 @@ function MovieCard({ item, movie = true }) {
           {movie ? item.title : item.name}
         </p>
         <p className="text-sm font-light">
-          {formatDate(movie ? item.release_date : item.first_air_date)}
+          {(item.release_date || item.first_air_date) &&
+            formatDate(movie ? item.release_date : item.first_air_date)}
         </p>
       </div>
     </Link>
