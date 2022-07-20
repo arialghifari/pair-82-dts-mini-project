@@ -29,7 +29,7 @@ function MovieCard({ item, top }) {
             className="movie-top h-60 w-40 block rounded-sm object-cover object-center"
           />
         </div>
-        <p className="movie-card__title font-medium text-center">
+        <p className="movie-card__title font-medium text-center text-lg">
           {item.title}
         </p>
         <p className="text-sm font-light text-center">

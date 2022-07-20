@@ -20,6 +20,12 @@ export const moviesApi = createApi({
       query: () =>
         `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&with_original_language=id&primary_release_date.gte=2022`,
     }),
+    detailMovie: builder.query({
+      query: (id) => `/movie/${id}?api_key=${API_KEY}`,
+    }),
+    detailSeries: builder.query({
+      query: (id) => `/tv/${id}?api_key=${API_KEY}`,
+    }),
   }),
 });
 
@@ -28,4 +34,6 @@ export const {
   useTrendingMoviesWeeklyQuery,
   useTrendingSeriesWeeklyQuery,
   useTrendingMoviesIndonesiaQuery,
+  useDetailMovieQuery,
+  useDetailSeriesQuery,
 } = moviesApi;

@@ -1,9 +1,13 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 
 function Login() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -31,18 +35,18 @@ function Login() {
             name="email"
             placeholder="Email"
             required
-            className="bg-zinc-900 border border-zinc-500 p-3"
+            className="bg-zinc-900 border border-zinc-500 p-3 rounded-sm"
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
             required
-            className="bg-zinc-900 border border-zinc-500 p-3"
+            className="bg-zinc-900 border border-zinc-500 p-3 rounded-sm"
           />
 
           {errorMessage && <p className="text-red-400">{errorMessage}</p>}
-          <button type="submit" className="bg-red-700 p-3">
+          <button type="submit" className="bg-red-700 hover:bg-red-800 p-3 rounded-sm">
             Login
           </button>
         </form>

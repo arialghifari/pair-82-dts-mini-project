@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import MovieBanner from "../components/MovieBanner";
 import MovieCard from "../components/MovieCard";
 import MovieCardTop from "../components/MovieCardTop";
@@ -10,12 +10,17 @@ import {
 } from "../services/moviesApi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, EffectFade } from "swiper";
+import { Autoplay, EffectFade, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import "swiper/css/pagination";
 
 function HomePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const {
     data: dataPopular,
     error: errorPopular,
@@ -42,14 +47,16 @@ function HomePage() {
 
   return (
     <div className="mb-20">
-      {errorPopular ? (
-        <>Oh no, there was an error</>
-      ) : isLoadingPopular ? (
-        <p className="text-center">Loading..</p>
+      {errorPopular && errorTrending && errorTrendingSeries && errorInd ? (
+        <p className="text-center">Oh no, there was an error</p>
+      ) : isLoadingPopular &&
+        isLoadingTrending &&
+        isLoadingTrendingSeries &&
+        isLoadingInd ? (
+        <p className="text-center">Loading...</p>
       ) : dataPopular ? (
         <>
           <Swiper
-            navigation={true}
             slidesPerView={1}
             effect="fade"
             loop={true}
@@ -57,7 +64,11 @@ function HomePage() {
               delay: 10000,
               disableOnInteraction: false,
             }}
-            modules={[Navigation, Autoplay, EffectFade]}
+            pagination={{
+              dynamicBullets: true,
+              clickable: true,
+            }}
+            modules={[Pagination, Autoplay, EffectFade]}
             className="mySwiper"
           >
             {dataPopular.results.map((item) => {
@@ -72,12 +83,12 @@ function HomePage() {
       ) : null}
 
       {errorTrending ? (
-        <>Oh no, there was an error</>
+        <></>
       ) : isLoadingTrending ? (
-        <p className="text-center"></p>
+        <></>
       ) : dataTrending ? (
-        <>
-          <p className="text-xl font-bold mt-10 my-4">🔥 Trending This Week</p>
+        <div className="container">
+          <p className="text-xl font-bold mt-16 my-4">🔥 Trending This Week</p>
           <Swiper
             slidesPerView={2}
             spaceBetween={20}
@@ -102,16 +113,16 @@ function HomePage() {
               );
             })}
           </Swiper>
-        </>
+        </div>
       ) : null}
 
       {errorInd ? (
-        <>Oh no, there was an error</>
+        <></>
       ) : isLoadingInd ? (
-        <p className="text-center"></p>
+        <></>
       ) : dataInd ? (
-        <>
-          <p className="text-xl font-bold mt-10 mb-4">
+        <div className="container">
+          <p className="text-xl font-bold mt-16 mb-4">
             🥇 Top 10 Indonesian Movies
           </p>
           <Swiper
@@ -138,16 +149,16 @@ function HomePage() {
               );
             })}
           </Swiper>
-        </>
+        </div>
       ) : null}
 
       {errorTrendingSeries ? (
-        <>Oh no, there was an error</>
+        <></>
       ) : isLoadingTrendingSeries ? (
-        <p className="text-center"></p>
+        <></>
       ) : dataTrendingSeries ? (
-        <>
-          <p className="text-xl font-bold mt-10 my-4">⭐Best Series</p>
+        <div className="container">
+          <p className="text-xl font-bold mt-16 my-4">⭐ Best Series</p>
           <Swiper
             slidesPerView={2}
             spaceBetween={20}
@@ -172,7 +183,7 @@ function HomePage() {
               );
             })}
           </Swiper>
-        </>
+        </div>
       ) : null}
     </div>
   );

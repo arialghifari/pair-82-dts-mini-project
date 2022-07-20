@@ -17,14 +17,14 @@ function MovieCard({ item, movie = true }) {
   return (
     <Link to={movie ? `/movie/${item.id}` : `/series/${item.id}`}>
       <div className="movie-card flex flex-col gap-2 cursor-pointer">
-        <div className="rounded-md bg-red-700">
+        <div className="rounded-md bg-red-700 h-72 w-48">
           <img
             src={`${BASE_IMAGE_URL}${item.poster_path}`}
             alt={item.title}
-            className="movie h-72 w-48 rounded-md object-cover object-center"
+            className="h-full w-full movie rounded-md object-cover object-center"
           />
         </div>
-        <p className="movie-card__title font-medium">
+        <p className="movie-card__title font-medium text-lg">
           {movie ? item.title : item.name}
         </p>
         <p className="text-sm font-light">

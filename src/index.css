@@ -12,7 +12,7 @@
 }
 
 .text-shadow-desc {
-  text-shadow: 1px 1px 1px #424242;
+  text-shadow: 1px 1px 4px #000000;
 }
 
 .text-shadow-title {
@@ -34,6 +34,25 @@
 
 .swiper-button-prev {
   left: 0 !important;
+}
+
+:root {
+  --swiper-pagination-color: #bb0000;
+  --swiper-pagination-bullet-size: 20px;
+  --swiper-pagination-bullet-width: 14px;
+  --swiper-pagination-bullet-height: 14px;
+  --swiper-pagination-bullet-inactive-color: #da0000;
+  --swiper-pagination-bullet-inactive-opacity: 0.6;
+  --swiper-pagination-bullet-horizontal-gap: 4px;
+}
+
+.swiper-pagination {
+  margin-bottom: 0.5rem !important;
+}
+
+.swiper-pagination-bullet-active {
+  box-sizing: border-box;
+  border: 2px solid #dfdfdf !important;
 }
 
 .movie-card:hover div > img.movie {

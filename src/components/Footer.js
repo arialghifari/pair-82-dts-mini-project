@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="py-10 text-zinc-500">
+    <div className="container py-10 text-zinc-500">
       <div className="grid gap-8 grid-cols-1 md:grid-cols-4">
         <div className="flex flex-col items-start gap-3">
           <button>Audio and Subtitles</button>
