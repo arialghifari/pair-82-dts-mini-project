@@ -26,7 +26,18 @@ function Register() {
       navigate("/");
       return user;
     } catch (error) {
-      setErrorMessage(`* ${error.message}`);
+      let errMessage = "There was an error";
+      const sanitizeErrMsg = error.message.split("/")[1].split(")")[0];
+
+      if (sanitizeErrMsg === "weak-password") {
+        errMessage = "Password should be at least 6 characters";
+      }
+
+      if (sanitizeErrMsg === "email-already-in-use") {
+        errMessage = "Email already in use";
+      }
+
+      setErrorMessage(`* ${errMessage}`);
     }
   };
 

@@ -22,7 +22,27 @@ function Login() {
       navigate("/");
       return user;
     } catch (error) {
-      setErrorMessage(`* ${error.message}`);
+      console.log(error.message);
+      let errMessage = "There was an error";
+      const sanitizeErrMsg = error.message.split("/")[1].split(")")[0];
+
+      if (sanitizeErrMsg === "too-many-requests") {
+        errMessage = "Too many request. Please try again later";
+      }
+
+      if (sanitizeErrMsg === "wrong-password") {
+        errMessage = "Email and password doesn't match";
+      }
+
+      if (sanitizeErrMsg === "user-not-found") {
+        errMessage = "User not found. Please register";
+      }
+
+      if (sanitizeErrMsg === "email-already-in-use") {
+        errMessage = "Email already in use";
+      }
+
+      setErrorMessage(`* ${errMessage}`);
     }
   };
 
