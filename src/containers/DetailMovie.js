@@ -154,7 +154,7 @@ function HomePage() {
 
           {/* Similar Movie */}
           <div className="container">
-            <p className="text-xl font-bold mt-16 my-4">Similar Movies</p>
+            <p className="text-xl font-bold mt-16 my-4">Similar Movie</p>
             <Swiper
               slidesPerView={2}
               spaceBetween={20}
@@ -190,7 +190,7 @@ function HomePage() {
 
           {/* Recommended Movie */}
           <div className="container">
-            <p className="text-xl font-bold mt-10 my-4">Recommended Movies</p>
+            <p className="text-xl font-bold mt-10 my-4">Recommended Movie</p>
             <Swiper
               slidesPerView={2}
               spaceBetween={20}
