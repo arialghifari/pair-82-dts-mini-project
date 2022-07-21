@@ -8,6 +8,7 @@ function Header() {
   const [toggleLogout, setToggleLogout] = useState(false);
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
+  const username = user?.email.split("@")[0];
   const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
@@ -27,7 +28,7 @@ function Header() {
       <p>{error.message}</p>;
     }
   };
-  
+
   const handleInputSearch = async (e) => {
     e.key === "Enter" && navigate(`/search/${searchQuery}`);
   };
@@ -63,7 +64,7 @@ function Header() {
           </div>
         </section>
 
-        <section className="header-right flex gap-8">
+        <section className="header-right flex gap-4">
           <div className="flex items-center relative">
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -86,7 +87,7 @@ function Header() {
                 onClick={() => setToggleLogout(!toggleLogout)}
                 className="cursor-pointer flex items-center gap-2 "
               >
-                <p>{user.email}</p>
+                <p>{username}</p>
                 <img
                   src="/profile_image.png"
                   alt="Icon Search"
