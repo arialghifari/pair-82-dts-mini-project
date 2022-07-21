@@ -1,3 +1,5 @@
+Live Demo: [The Movie](https://ari-movies-app.netlify.app/)
+
 # DTS Mini Project
 
 Ketentuan lengkap bisa dilihat di [Mini Project Guidelines](https://docs.google.com/document/d/1DzBNYJMhruoOQK0NOqiW3_UZ1JrA285K53PzHLNf9mc/edit?usp=sharing).
