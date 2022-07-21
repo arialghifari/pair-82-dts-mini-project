@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   useDetailMovieQuery,
+  useMovieSimilarQuery,
   useMovieRecommendationsQuery,
   useMovieVideosQuery,
 } from "../services/moviesApi";
@@ -33,6 +34,11 @@ function HomePage() {
   const { id } = useParams();
   const { data, error, isLoading } = useDetailMovieQuery(`${id}`);
   const {
+    data: dataMovieSim,
+    error: errorMovieSim,
+    isLoading: isLoadingMovieSim,
+  } = useMovieSimilarQuery(`${id}`);
+  const {
     data: dataMovieRec,
     error: errorMovieRec,
     isLoading: isLoadingMovieRec,
@@ -54,13 +60,16 @@ function HomePage() {
 
   return (
     <div className="mb-20">
-      {error || errorMovieRec || errorMovieVid ? (
+      {error || errorMovieRec || errorMovieVid || errorMovieSim ? (
         <p className="text-center">Oh no, there was an error</p>
-      ) : isLoading || isLoadingMovieRec || isLoadingMovieVid ? (
+      ) : isLoading ||
+        isLoadingMovieRec ||
+        isLoadingMovieVid ||
+        isLoadingMovieSim ? (
         <p className="text-center">Loading...</p>
-      ) : data && dataMovieRec && dataMovieVid ? (
+      ) : data && dataMovieRec && dataMovieVid && dataMovieSim ? (
         <>
-          {/* Detail Movie */}
+          {/* Movie Detail */}
           <div className="relative">
             <div className="container">
               <div className="absolute z-20 container pl-0 pr-8 h-full flex justify-center gap-10 items-center">
@@ -143,9 +152,45 @@ function HomePage() {
           {/* Movie Trailer */}
           <Modal modal={modal} setModal={setModal} trailerKey={trailerKey} />
 
-          {/* Recomendations */}
+          {/* Similar Movie */}
           <div className="container">
-            <p className="text-xl font-bold mt-16 my-4">Recomendations</p>
+            <p className="text-xl font-bold mt-16 my-4">Similar Movies</p>
+            <Swiper
+              slidesPerView={2}
+              spaceBetween={20}
+              className="mySwiper"
+              breakpoints={{
+                440: {
+                  slidesPerView: 2,
+                },
+                640: {
+                  slidesPerView: 3,
+                },
+                1024: {
+                  slidesPerView: 5,
+                },
+                1280: {
+                  slidesPerView: 6,
+                },
+              }}
+            >
+              {dataMovieSim.total_results > 0 ? (
+                dataMovieSim.results.map((item) => {
+                  return (
+                    <SwiperSlide key={item.id}>
+                      <MovieCard key={item.id} item={item} />
+                    </SwiperSlide>
+                  );
+                })
+              ) : (
+                <p>Not available</p>
+              )}
+            </Swiper>
+          </div>
+
+          {/* Recommended Movie */}
+          <div className="container">
+            <p className="text-xl font-bold mt-10 my-4">Recommended Movies</p>
             <Swiper
               slidesPerView={2}
               spaceBetween={20}

@@ -26,6 +26,9 @@ export const moviesApi = createApi({
     movieVideos: build.query({
       query: (id) => `/movie/${id}/videos?api_key=${API_KEY}`,
     }),
+    movieSimilar: build.query({
+      query: (id) => `/movie/${id}/similar?api_key=${API_KEY}`,
+    }),
     movieRecommendations: build.query({
       query: (id) => `/movie/${id}/recommendations?api_key=${API_KEY}`,
     }),
@@ -34,6 +37,9 @@ export const moviesApi = createApi({
     }),
     detailSeries: build.query({
       query: (id) => `/tv/${id}?api_key=${API_KEY}`,
+    }),
+    seriesSimilar: build.query({
+      query: (id) => `/tv/${id}/similar?api_key=${API_KEY}`,
     }),
     seriesRecommendations: build.query({
       query: (id) => `/tv/${id}/recommendations?api_key=${API_KEY}`,
@@ -50,9 +56,11 @@ export const {
   useTrendingSeriesWeeklyQuery,
   useTrendingMoviesIndonesiaQuery,
   useDetailMovieQuery,
+  useMovieSimilarQuery,
   useMovieRecommendationsQuery,
   useMovieVideosQuery,
   useDetailSeriesQuery,
+  useSeriesSimilarQuery,
   useSeriesRecommendationsQuery,
   useSeriesVideosQuery,
   useSearchMoviesQuery,

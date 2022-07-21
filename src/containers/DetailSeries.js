@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   useDetailSeriesQuery,
+  useSeriesSimilarQuery,
   useSeriesRecommendationsQuery,
   useSeriesVideosQuery,
 } from "../services/moviesApi";
@@ -34,6 +35,11 @@ function HomePage() {
   const { id } = useParams();
   const { data, error, isLoading } = useDetailSeriesQuery(`${id}`);
   const {
+    data: dataSeriesSim,
+    error: errorSeriesSim,
+    isLoading: isLoadingSeriesSim,
+  } = useSeriesSimilarQuery(`${id}`);
+  const {
     data: dataSeriesRec,
     error: errorSeriesRec,
     isLoading: isLoadingSeriesRec,
@@ -60,11 +66,14 @@ function HomePage() {
 
   return (
     <div className="mb-20">
-      {error || errorSeriesRec || errorSeriesVid ? (
+      {error || errorSeriesRec || errorSeriesVid || errorSeriesSim ? (
         <p className="text-center">Oh no, there was an error</p>
-      ) : isLoading || isLoadingSeriesRec || isLoadingSeriesVid ? (
+      ) : isLoading ||
+        isLoadingSeriesRec ||
+        isLoadingSeriesVid ||
+        isLoadingSeriesSim ? (
         <p className="text-center">Loading...</p>
-      ) : data && dataSeriesRec && dataSeriesVid ? (
+      ) : data && dataSeriesRec && dataSeriesVid && dataSeriesSim ? (
         <>
           {/* Detail Series */}
           <div className="relative">
@@ -151,9 +160,45 @@ function HomePage() {
           {/* Series Trailer */}
           <Modal modal={modal} setModal={setModal} trailerKey={trailerKey} />
 
-          {/* Series Recommendations */}
+          {/* Similar Series */}
           <div className="container">
-            <p className="text-xl font-bold mt-16 my-4">Recomendations</p>
+            <p className="text-xl font-bold mt-16 my-4">Similar Series</p>
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={20}
+              className="mySwiper"
+              breakpoints={{
+                440: {
+                  slidesPerView: 2,
+                },
+                640: {
+                  slidesPerView: 3,
+                },
+                1024: {
+                  slidesPerView: 5,
+                },
+                1280: {
+                  slidesPerView: 6,
+                },
+              }}
+            >
+              {dataSeriesSim.total_results > 0 ? (
+                dataSeriesSim.results.map((item) => {
+                  return (
+                    <SwiperSlide key={item.id}>
+                      <MovieCard key={item.id} item={item} movie={false} />
+                    </SwiperSlide>
+                  );
+                })
+              ) : (
+                <p>Not available</p>
+              )}
+            </Swiper>
+          </div>
+
+          {/* Recommended Series */}
+          <div className="container">
+            <p className="text-xl font-bold mt-10 my-4">Recommended Series</p>
             <Swiper
               slidesPerView={1}
               spaceBetween={20}
