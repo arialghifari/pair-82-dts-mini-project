@@ -8,6 +8,7 @@ function Header() {
   const [toggleLogout, setToggleLogout] = useState(false);
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
     { text: "Home", link: "/" },
@@ -25,6 +26,14 @@ function Header() {
     } catch (error) {
       <p>{error.message}</p>;
     }
+  };
+  
+  const handleInputSearch = async (e) => {
+    e.key === "Enter" && navigate(`/search/${searchQuery}`);
+  };
+
+  const handleSearch = async () => {
+    navigate(`/search/${searchQuery}`);
   };
 
   return (
@@ -57,11 +66,16 @@ function Header() {
         <section className="header-right flex gap-8">
           <div className="flex items-center relative">
             <input
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyUp={(e) => handleInputSearch(e)}
               type="text"
               placeholder="Search Movie"
               className="p-2 bg-zinc-900 border border-zinc-500 rounded-sm"
             />
-            <button className="absolute right-1 p-2 bg-zinc-900">
+            <button
+              onClick={handleSearch}
+              className="absolute right-1 p-2 bg-zinc-900"
+            >
               <img src="/ic_search.svg" alt="Icon Search" />
             </button>
           </div>

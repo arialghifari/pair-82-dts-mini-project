@@ -9,6 +9,7 @@ import DetailSeries from "./containers/DetailSeries";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Page404 from "./containers/Page404";
+import Search from "./containers/Search";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/search/:query" element={<Search />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
 

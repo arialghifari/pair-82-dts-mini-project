@@ -12,20 +12,13 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { Swiper, SwiperSlide } from "swiper/react";
 import MovieCard from "../components/MovieCard";
+import Modal from "../components/Modal";
 
 function HomePage() {
   window.scrollTo(0, 0);
 
   const [modal, setModal] = useState(false);
   const [trailerKey, setTrailerKey] = useState("");
-
-  const handleModalClose = () => {
-    setModal(false);
-    const iframe = document.querySelector("iframe");
-    const tempSrc = iframe.src;
-    iframe.src = "";
-    iframe.src = tempSrc;
-  };
 
   const formatDate = (releaseDate) => {
     const date = new Date(releaseDate);
@@ -95,13 +88,21 @@ function HomePage() {
                   </button>
                 ) : (
                   <p className="flex items-center gap-1 bg-zinc-400 w-fit text-black py-2 px-3 rounded-sm">
-                    <img src="/ic_info.svg" alt="" /> Trailer Unavailable
+                    <img src="/ic_info.svg" alt="" /> Trailer not available
                   </p>
                 )}
-                <p className="font-bold text-4xl text-shadow-title leading-[3.35rem]">
-                  {`${data.title}`}{" "}
-                  {data.release_date && `(${data.release_date.split("-")[0]})`}
-                </p>
+                <div>
+                  <p className="font-bold text-4xl text-shadow-title leading-[3.35rem]">
+                    {`${data.title}`}{" "}
+                    {data.release_date &&
+                      `(${data.release_date.split("-")[0]})`}
+                  </p>
+                  {data.tagline && (
+                    <p className="text-lg italic text-shadow-desc text-zinc-200">
+                      "{data.tagline}"
+                    </p>
+                  )}
+                </div>
 
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-2">
@@ -185,42 +186,12 @@ function HomePage() {
         </div>
       ) : null}
 
-      {/* Modals */}
       {errorMovieVid ? (
         <p className="text-center"></p>
       ) : isLoadingMovieVid ? (
         <p className="text-center"></p>
       ) : dataMovieVid ? (
-        <>
-          <div
-            className={`${
-              modal ? "fixed" : "hidden"
-            } bg-zinc-900 opacity-80 z-50 top-0 left-0 right-0 h-screen`}
-          />
-          <div
-            onClick={handleModalClose}
-            className={`${
-              modal ? "fixed" : "hidden"
-            } z-50 top-0 left-0 right-0 h-screen flex justify-center items-center`}
-          >
-            <div className="w-[70%] h-[80%] relative border-4 border-red-800">
-              <iframe
-                src={`https://www.youtube.com/embed/${trailerKey}`}
-                title="Trailer"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-              <button
-                onClick={handleModalClose}
-                className="absolute -top-3.5 -right-3.5 bg-red-700 rounded-sm p-0.5"
-              >
-                <img src="/ic_close.svg" alt="Close" />
-              </button>
-            </div>
-          </div>
-        </>
+        <Modal modal={modal} setModal={setModal} trailerKey={trailerKey} />
       ) : null}
     </div>
   );
