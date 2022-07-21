@@ -67,13 +67,13 @@ function HomePage() {
       ) : data ? (
         <div className="relative">
           <div className="container">
-            <div className="absolute z-20 container pl-0 pr-8 h-full flex gap-10 items-center">
+            <div className="absolute z-20 container pl-0 pr-8 h-full flex justify-center gap-10 items-center">
               <img
                 src={`${BASE_IMAGE_URL}${data.poster_path}`}
                 alt={data.name}
                 className="h-[28rem] w-[18rem] object-cover object-center rounded-md shadow-lg shadow-neutral-900"
               />
-              <div className="flex gap-4 flex-col justify-center">
+              <div className="flex max-w-3xl gap-4 flex-col justify-center">
                 {trailerKey ? (
                   <button
                     onClick={() => setModal(true)}
@@ -87,7 +87,7 @@ function HomePage() {
                     <img src="/ic_info.svg" alt="" /> Trailer not available
                   </p>
                 )}
-                <div>
+                <div className="my-5">
                   <p className="font-bold text-4xl text-shadow-title leading-[3.35rem]">
                     {`${data.name}`}{" "}
                     {data.first_air_date &&
@@ -138,10 +138,10 @@ function HomePage() {
             <img
               src={`${BASE_IMAGE_URL}${data.backdrop_path}`}
               alt={data.title}
-              className="h-[42rem] w-[200rem] object-cover object-center"
+              className="h-[46rem] w-[200rem] object-cover object-center"
             />
           ) : (
-            <div className="h-[42rem]" />
+            <div className="h-[46rem]" />
           )}
           <div className="absolute top-0 bg-zinc-900 h-full w-full z-10 opacity-90"></div>
         </div>
