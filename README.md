@@ -1,4 +1,4 @@
-Live Demo: [The Movie](https://ari-movies-app.netlify.app/)
+Live Demo: [The Movie](https://the-movie-al.netlify.app/)
 
 # DTS Mini Project
 
