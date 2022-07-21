@@ -9,6 +9,7 @@ function Register() {
   }, []);
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPasswordShown, setIsPasswordShown] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -53,13 +54,23 @@ function Register() {
             required
             className="bg-zinc-900 border border-zinc-500 p-3 rounded-sm"
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            className="bg-zinc-900 border border-zinc-500 p-3 rounded-sm"
-          />
+          <div className="relative">
+            <input
+              type={isPasswordShown ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              required
+              className="bg-zinc-900 border border-zinc-500 p-3 rounded-sm w-full"
+            />
+            <div className="absolute top-0 right-2 h-full flex items-center">
+              <img
+                onClick={() => setIsPasswordShown(!isPasswordShown)}
+                src={isPasswordShown ? "/ic_eyeoff.svg" : "/ic_eye.svg"}
+                alt="hide"
+                className="p-2 cursor-pointer bg-zinc-900"
+              />
+            </div>
+          </div>
 
           {errorMessage && <p className="text-red-400">{errorMessage}</p>}
           <button
