@@ -6,39 +6,39 @@ export const moviesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
-  endpoints: (builder) => ({
-    popularMovie: builder.query({
+  endpoints: (build) => ({
+    popularMovie: build.query({
       query: () => `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`,
     }),
-    trendingMoviesWeekly: builder.query({
+    trendingMoviesWeekly: build.query({
       query: () => `/trending/movie/week?api_key=${API_KEY}`,
     }),
-    trendingSeriesWeekly: builder.query({
+    trendingSeriesWeekly: build.query({
       query: () => `/trending/tv/week?api_key=${API_KEY}`,
     }),
-    trendingMoviesIndonesia: builder.query({
+    trendingMoviesIndonesia: build.query({
       query: () =>
         `/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&with_original_language=id&primary_release_date.gte=2022`,
     }),
-    detailMovie: builder.query({
+    detailMovie: build.query({
       query: (id) => `/movie/${id}?api_key=${API_KEY}`,
     }),
-    movieRecomendations: builder.query({
-      query: (id) => `/movie/${id}/recommendations?api_key=${API_KEY}`,
-    }),
-    movieVideos: builder.query({
+    movieVideos: build.query({
       query: (id) => `/movie/${id}/videos?api_key=${API_KEY}`,
     }),
-    searchMovies: builder.query({
+    movieRecommendations: build.query({
+      query: (id) => `/movie/${id}/recommendations?api_key=${API_KEY}`,
+    }),
+    searchMovies: build.query({
       query: (query) => `/search/movie?api_key=${API_KEY}&query=${query}`,
     }),
-    detailSeries: builder.query({
+    detailSeries: build.query({
       query: (id) => `/tv/${id}?api_key=${API_KEY}`,
     }),
-    seriesRecomendations: builder.query({
+    seriesRecommendations: build.query({
       query: (id) => `/tv/${id}/recommendations?api_key=${API_KEY}`,
     }),
-    seriesVideos: builder.query({
+    seriesVideos: build.query({
       query: (id) => `/tv/${id}/videos?api_key=${API_KEY}`,
     }),
   }),
@@ -50,10 +50,10 @@ export const {
   useTrendingSeriesWeeklyQuery,
   useTrendingMoviesIndonesiaQuery,
   useDetailMovieQuery,
-  useMovieRecomendationsQuery,
+  useMovieRecommendationsQuery,
   useMovieVideosQuery,
   useDetailSeriesQuery,
-  useSeriesRecomendationsQuery,
+  useSeriesRecommendationsQuery,
   useSeriesVideosQuery,
   useSearchMoviesQuery,
 } = moviesApi;
