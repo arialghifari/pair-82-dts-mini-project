@@ -24,6 +24,7 @@ function Register() {
         password
       );
       navigate("/");
+      return user;
     } catch (error) {
       setErrorMessage(`* ${error.message}`);
     }
@@ -50,7 +51,10 @@ function Register() {
           />
 
           {errorMessage && <p className="text-red-400">{errorMessage}</p>}
-          <button type="submit" className="bg-red-700 hover:bg-red-800 p-3 rounded-sm">
+          <button
+            type="submit"
+            className="bg-red-700 hover:bg-red-800 p-3 rounded-sm"
+          >
             Register
           </button>
         </form>

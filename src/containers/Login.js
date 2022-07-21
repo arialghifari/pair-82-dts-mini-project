@@ -20,6 +20,7 @@ function Login() {
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
+      return user;
     } catch (error) {
       setErrorMessage(`* ${error.message}`);
     }
@@ -46,7 +47,10 @@ function Login() {
           />
 
           {errorMessage && <p className="text-red-400">{errorMessage}</p>}
-          <button type="submit" className="bg-red-700 hover:bg-red-800 p-3 rounded-sm">
+          <button
+            type="submit"
+            className="bg-red-700 hover:bg-red-800 p-3 rounded-sm"
+          >
             Login
           </button>
         </form>
