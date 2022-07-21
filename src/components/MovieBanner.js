@@ -15,7 +15,7 @@ function MovieCard({ item }) {
       <div className="movie-card flex flex-col">
         <div className="absolute w-2/3 left-0 h-full flex gap-4 flex-col justify-center px-16 bg-gradient-to-r from-zinc-900"></div>
         <div className="container">
-          <div className="absolute w-1/2 h-full flex gap-4 flex-col justify-center">
+          <div className="absolute max-w-2xl h-full flex gap-4 flex-col justify-center">
             <p className="font-bold text-5xl text-shadow-title leading-[3.75rem]">
               {item.title}
             </p>
