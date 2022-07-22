@@ -8,7 +8,10 @@ function Header() {
   const [toggleLogout, setToggleLogout] = useState(false);
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
-  const username = user?.email.split("@")[0];
+  const username = user?.displayName
+    ? user?.displayName
+    : user?.email.split("@")[0];
+  const userPicture = user?.photoURL ? user?.photoURL : "/profile_image.png";
   const [searchQuery, setSearchQuery] = useState("");
 
   const navItems = [
@@ -89,7 +92,7 @@ function Header() {
               >
                 <p>{username}</p>
                 <img
-                  src="/profile_image.png"
+                  src={userPicture}
                   alt="Icon Search"
                   className="w-7 rounded-sm"
                 />

@@ -1,4 +1,8 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
@@ -11,6 +15,9 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const navigate = useNavigate();
+
+  const provider = new GoogleAuthProvider();
+  const signInWithGoogle = () => signInWithPopup(auth, provider);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,6 +57,22 @@ function Login() {
     <div className="flex flex-col items-center my-32 gap-10">
       <div className="flex flex-col gap-3 w-full max-w-md">
         <p className="text-2xl mb-4 text-center">LOGIN</p>
+
+        <button
+          onClick={signInWithGoogle}
+          type="submit"
+          className="bg-zinc-100 hover:bg-zinc-200 text-zinc-900 p-3 rounded-sm flex items-center justify-center gap-3"
+        >
+          <img src="/ic_google.svg" alt="" className="w-6" />
+          Sign In With Google
+        </button>
+        <div className="text-center my-6 relative flex justify-center">
+          <div className="absolute top-0 left-0 right-0 h-full w-full flex items-center">
+            <hr className="w-full border-zinc-500" />
+          </div>
+          <p className="bg-zinc-900 px-4 z-20 text-zinc-500">or</p>
+        </div>
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="email"
