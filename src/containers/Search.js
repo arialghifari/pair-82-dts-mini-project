@@ -49,12 +49,12 @@ function Search() {
               {handlePrevState ? (
                 <button
                   onClick={handlePrev}
-                  className="border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
+                  className="border border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
                 >
                   Prev Page
                 </button>
               ) : (
-                <button className="cursor-default border-2 border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
+                <button className="cursor-default border border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
                   Prev Page
                 </button>
               )}
@@ -62,12 +62,12 @@ function Search() {
               {handleNextState ? (
                 <button
                   onClick={handleNext}
-                  className="border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
+                  className="border border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
                 >
                   Next Page
                 </button>
               ) : (
-                <button className="cursor-default border-2 border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
+                <button className="cursor-default border border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
                   Next Page
                 </button>
               )}
