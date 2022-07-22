@@ -33,7 +33,7 @@ function Header() {
   };
 
   const handleInputSearch = async (e) => {
-    e.key === "Enter" && navigate(`/search/${searchQuery}`);
+    e.key === "Enter" && navigate(`/search/${searchQuery}/1`);
   };
 
   const handleSearch = async () => {

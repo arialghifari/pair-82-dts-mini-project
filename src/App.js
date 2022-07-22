@@ -50,7 +50,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/search/:query" element={<Search />} />
+        <Route path="/search/:query/:page" element={<Search />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
 

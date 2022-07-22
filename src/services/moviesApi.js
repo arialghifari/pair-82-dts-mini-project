@@ -33,7 +33,8 @@ export const moviesApi = createApi({
       query: (id) => `/movie/${id}/recommendations?api_key=${API_KEY}`,
     }),
     searchMovies: build.query({
-      query: (query) => `/search/movie?api_key=${API_KEY}&query=${query}`,
+      query: ({query, page}) =>
+        `/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`,
     }),
     detailSeries: build.query({
       query: (id) => `/tv/${id}?api_key=${API_KEY}`,
