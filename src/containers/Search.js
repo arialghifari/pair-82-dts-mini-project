@@ -12,17 +12,16 @@ function Search() {
     query: query,
     page: page,
   });
-  console.log(data);
 
   const handlePrev = () => {
     navigate(`/search/${query}/${parseInt(page) - 1}`);
   };
-  const handlePrevState = page <= 1 ? "hidden" : "inline";
+  const handlePrevState = page <= 1 ? false : true;
 
   const handleNext = () => {
     navigate(`/search/${query}/${parseInt(page) + 1}`);
   };
-  const handleNextState = (data?.results.length < 20) ? "hidden" : "inline";
+  const handleNextState = data?.results.length < 20 ? false : true;
 
   return (
     <div className="container mb-20">
@@ -45,19 +44,34 @@ function Search() {
             )}
           </div>
 
-          <div className="flex justify-center gap-4 mt-10">
-            <button
-              onClick={handlePrev}
-              className={`${handlePrevState} border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1`}
-            >
-              Prev Page
-            </button>
-            <button
-              onClick={handleNext}
-              className={`${handleNextState} border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1`}
-            >
-              Next Page
-            </button>
+          <div className="flex justify-center">
+            <div className="flex justify-between gap-4 mt-10">
+              {handlePrevState ? (
+                <button
+                  onClick={handlePrev}
+                  className="border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
+                >
+                  Prev Page
+                </button>
+              ) : (
+                <button className="cursor-default border-2 border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
+                  Prev Page
+                </button>
+              )}
+
+              {handleNextState ? (
+                <button
+                  onClick={handleNext}
+                  className="border-2 border-red-700 hover:bg-red-700 rounded-sm px-6 py-1"
+                >
+                  Next Page
+                </button>
+              ) : (
+                <button className="cursor-default border-2 border-zinc-600 text-zinc-600 rounded-sm px-6 py-1">
+                  Next Page
+                </button>
+              )}
+            </div>
           </div>
         </>
       ) : null}

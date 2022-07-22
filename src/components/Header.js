@@ -37,7 +37,7 @@ function Header() {
   };
 
   const handleSearch = async () => {
-    navigate(`/search/${searchQuery}`);
+    navigate(`/search/${searchQuery}/1`);
   };
 
   return (
@@ -93,7 +93,7 @@ function Header() {
                 <p>{username}</p>
                 <img
                   src={userPicture}
-                  alt="Icon Search"
+                  alt="Profile"
                   className="w-7 rounded-sm"
                 />
                 <img
