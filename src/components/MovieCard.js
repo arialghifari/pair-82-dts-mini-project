@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BASE_IMAGE_URL } from "../apis/tmdb";
+import { BASE_IMAGE_URL_SMALL } from "../apis/tmdb";
 
 function MovieCard({ item, movie = true }) {
   const formatDate = (releaseDate) => {
@@ -21,7 +21,7 @@ function MovieCard({ item, movie = true }) {
           <img
             src={
               item.poster_path
-                ? `${BASE_IMAGE_URL}${item.poster_path}`
+                ? `${BASE_IMAGE_URL_SMALL}${item.poster_path}`
                 : "/image_not_found.png"
             }
             alt={item.title}

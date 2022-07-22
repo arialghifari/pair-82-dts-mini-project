@@ -6,7 +6,7 @@ import {
   useSeriesVideosQuery,
 } from "../services/moviesApi";
 import { useParams } from "react-router-dom";
-import { BASE_IMAGE_URL } from "../apis/tmdb";
+import { BASE_IMAGE_URL_SMALL } from "../apis/tmdb";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -80,7 +80,7 @@ function HomePage() {
             <div className="container">
               <div className="absolute z-20 container pl-0 pr-8 h-full flex justify-center gap-10 items-center">
                 <img
-                  src={`${BASE_IMAGE_URL}${data.poster_path}`}
+                  src={`${BASE_IMAGE_URL_SMALL}${data.poster_path}`}
                   alt={data.name}
                   className="h-[28rem] w-[18rem] object-cover object-center rounded-md shadow-lg shadow-neutral-900"
                 />
@@ -147,7 +147,7 @@ function HomePage() {
             </div>
             {data.backdrop_path ? (
               <img
-                src={`${BASE_IMAGE_URL}${data.backdrop_path}`}
+                src={`${BASE_IMAGE_URL_SMALL}${data.backdrop_path}`}
                 alt={data.title}
                 className="h-[46rem] w-[200rem] object-cover object-center"
               />
@@ -183,7 +183,7 @@ function HomePage() {
               }}
             >
               {dataSeriesSim.total_results > 0 ? (
-                dataSeriesSim.results.map((item) => {
+                dataSeriesSim.results.slice(0, 10).map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       <MovieCard key={item.id} item={item} movie={false} />
@@ -219,7 +219,7 @@ function HomePage() {
               }}
             >
               {dataSeriesRec.total_results > 0 ? (
-                dataSeriesRec.results.map((item) => {
+                dataSeriesRec.results.slice(0, 10).map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       <MovieCard key={item.id} item={item} movie={false} />

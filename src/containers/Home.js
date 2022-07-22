@@ -73,7 +73,7 @@ function HomePage() {
             modules={[Pagination, Autoplay, EffectFade]}
             className="mySwiper"
           >
-            {dataPopular.results.map((item) => {
+            {dataPopular.results.slice(0, 5).map((item) => {
               return (
                 <SwiperSlide key={item.id}>
                   <MovieBanner item={item} />
