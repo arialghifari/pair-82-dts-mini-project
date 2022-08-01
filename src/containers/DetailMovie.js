@@ -175,7 +175,7 @@ function HomePage() {
               }}
             >
               {dataMovieSim.total_results > 0 ? (
-                dataMovieSim.results.map((item) => {
+                dataMovieSim.results.slice(0, 10).map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       <MovieCard key={item.id} item={item} />
@@ -211,7 +211,7 @@ function HomePage() {
               }}
             >
               {dataMovieRec.total_results > 0 ? (
-                dataMovieRec.results.map((item) => {
+                dataMovieRec.results.slice(0, 10).map((item) => {
                   return (
                     <SwiperSlide key={item.id}>
                       <MovieCard key={item.id} item={item} />
